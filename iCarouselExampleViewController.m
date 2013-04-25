@@ -68,6 +68,10 @@
 {
     [super viewDidLoad];
     ok = NO;
+    UIImageView *ivew = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trungthu.jpg"]];
+    ivew.frame = [self.view bounds];
+    [self.view addSubview:ivew];
+    [ivew addSubview:carousel];
     //configure carousel
     //self.view.backgroundColor = [UIColor whiteColor];
     carousel.type = iCarouselTypeCylinder;
@@ -167,7 +171,7 @@
     switch (option)
     {
         case iCarouselOptionSpacing:
-            return value * 1.1;
+            return value * 1;
         default:
             return value;
     }

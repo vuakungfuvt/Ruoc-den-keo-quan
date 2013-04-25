@@ -17,7 +17,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     //viewController = [[iCarouselExampleViewController alloc] initWithNibName:@"iCarouselExampleViewController" bundle:nil];
-    //self.window.rootViewController = viewController;
+    self.window.rootViewController = viewController;
     [window addSubview:viewController.view];
     [window makeKeyAndVisible];
     return YES;
