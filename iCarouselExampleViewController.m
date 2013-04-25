@@ -11,7 +11,9 @@
 #define SCROLL_SPEED 1 //items per second, can be negative or fractional
 
 
-@interface iCarouselExampleViewController ()
+@interface iCarouselExampleViewController (){
+    BOOL ok;
+}
 
 @property (nonatomic, retain) NSMutableArray *items;
 @property (nonatomic, assign) NSTimer *scrollTimer;
@@ -65,25 +67,35 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    ok = NO;
     //configure carousel
     //self.view.backgroundColor = [UIColor whiteColor];
     carousel.type = iCarouselTypeCylinder;
-    //[self playAudio];
+    [self playAudio];
+    carousel.userInteractionEnabled = YES;
+    UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeft:)];
+    left.direction = UIViewAnimationOptionTransitionFlipFromLeft;
+    UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleRight:)];
+    right.direction = UIViewAnimationOptionTransitionFlipFromRight;
+    [carousel addGestureRecognizer:left];
+    [carousel addGestureRecognizer:right];
     //start scrolling
     [self startScrolling];
 }
+- (void) handleLeft : (UISwipeGestureRecognizer*)sender{
+    NSLog(@"1");
+    ok = NO;
+}
+- (void) handleRight : (UISwipeGestureRecognizer*)sender{
+    ok = YES;
+    NSLog(@"2");
+}
 - (void) playAudio{
-    NSURL *url = [NSURL fileURLWithPath:[NSString stringWithFormat:@"%@/ruocdenthangtam.mp3", [[NSBundle mainBundle] resourcePath]]];
-	self.view.backgroundColor = [UIColor whiteColor];
-	NSError *error;
-	NSData *songFile = [[NSData alloc] initWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:&error ];
-    audioPlayer = [[AVAudioPlayer alloc] initWithData:songFile error:&error];
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"ruocdenthangtam" ofType:@"mp3"];
+    NSURL *url= [[NSURL alloc] initFileURLWithPath:path];
+    audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
 	audioPlayer.numberOfLoops = -1;
-	
-	if (audioPlayer == nil)
-		NSLog(@"%@",[NSString stringWithFormat:@"%@",[error description]]);
-	else
-		[audioPlayer play];
+	[audioPlayer play];
 }
 - (void)viewDidUnload
 {
@@ -163,15 +175,26 @@
 
 #pragma mark -
 #pragma mark Autoscroll
-
+ 
 - (void)startScrolling
 {
-    [scrollTimer invalidate];
-    scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0
-                                                    target:self
-                                                 selector:@selector(scrollStep)
-                                                 userInfo:nil
-                                                  repeats:YES];
+    if (ok) {
+        [scrollTimer invalidate];
+        scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0
+                                                       target:self
+                                                     selector:@selector(scrollStep)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    }
+    else{
+        [self stopScrolling];
+        [scrollTimer invalidate];
+        scrollTimer = [NSTimer scheduledTimerWithTimeInterval:1.0/30.0
+                                                       target:self
+                                                     selector:@selector(scrollStepnguoc)
+                                                     userInfo:nil
+                                                      repeats:YES];
+    }
 }
 
 - (void)stopScrolling
@@ -183,6 +206,7 @@
 - (void)scrollStep
 {
     //calculate delta time
+    NSLog(@"%@",ok);
     NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
     float delta = lastTime - now;
     lastTime = now;
@@ -192,6 +216,20 @@
     {
         //scroll carousel
         carousel.scrollOffset += delta * (float)(SCROLL_SPEED);
+    }
+}
+- (void)scrollStepnguoc
+{
+    //calculate delta time
+    NSTimeInterval now = [NSDate timeIntervalSinceReferenceDate];
+    float delta = lastTime - now;
+    lastTime = now;
+    
+    //don't autoscroll when user is manipulating carousel
+    if (!carousel.dragging && !carousel.decelerating)
+    {
+        //scroll carousel
+        carousel.scrollOffset -= delta * (float)(SCROLL_SPEED);
     }
 }
 
