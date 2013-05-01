@@ -70,19 +70,21 @@
     ok = NO;
     UIImageView *ivew = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"trungthu.jpg"]];
     ivew.frame = [self.view bounds];
-    [self.view addSubview:ivew];
-    [ivew addSubview:carousel];
+    
     //configure carousel
     //self.view.backgroundColor = [UIColor whiteColor];
     carousel.type = iCarouselTypeCylinder;
     [self playAudio];
-    carousel.userInteractionEnabled = YES;
+    ivew.userInteractionEnabled = YES;
     UISwipeGestureRecognizer *left = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleLeft:)];
-    left.direction = UIViewAnimationOptionTransitionFlipFromLeft;
+    left.direction = UIAccessibilityScrollDirectionLeft;
     UISwipeGestureRecognizer *right = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleRight:)];
-    right.direction = UIViewAnimationOptionTransitionFlipFromRight;
-    [carousel addGestureRecognizer:left];
-    [carousel addGestureRecognizer:right];
+    right.direction = UIAccessibilityScrollDirectionRight;
+    ivew.userInteractionEnabled = YES;
+    [ivew addGestureRecognizer :left];
+    [ivew addGestureRecognizer:right];
+    [self.view addSubview:ivew];
+    [ivew addSubview:carousel];
     //start scrolling
     [self startScrolling];
 }
