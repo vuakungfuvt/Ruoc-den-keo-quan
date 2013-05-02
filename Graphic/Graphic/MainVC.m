@@ -30,12 +30,12 @@
     // Do any additional setup after loading the view from its nib.
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:_webView];
-    NSString *pathname = [[NSBundle mainBundle] pathForResource:@"graphic" ofType:@"html"];
+    NSString *pathname = [[NSBundle mainBundle]  pathForResource:@"graphic" ofType:@"html" inDirectory:@"/"];
     NSString *htmlString = [NSString stringWithContentsOfFile:pathname encoding:NSUTF8StringEncoding error:nil];
     
     NSString *path = [[NSBundle mainBundle] bundlePath];
     NSURL *baseURL = [NSURL fileURLWithPath:path];
-    
+    _webView.delegate = self;
     [self.webView loadHTMLString:htmlString baseURL:baseURL];
 }
 
@@ -44,5 +44,18 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
+- (void)playSound{
+    NSString *path = [[NSBundle mainBundle]pathForResource:@"ruocdenthangtam" ofType:@"mp3"];
+    NSURL *url = [[NSURL alloc] initFileURLWithPath:path];
+    _audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:NULL];
+    [_audioPlayer play];
+}
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSURL *url = request.URL;
+    if ([url.scheme isEqualToString:@"techmaster"]) {
+        NSLog(@"%@",url.scheme);
+        [self playSound];
+    }
+    return YES;
+}
 @end

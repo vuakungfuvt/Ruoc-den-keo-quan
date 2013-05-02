@@ -20,6 +20,7 @@
                 showAxes(ctx,axes);
                 funGraph(ctx,axes,fun1,"rgb(11,153,11)",1);
                 funGraph(ctx,axes,fun2,"rgb(66,44,255)",2);
+                playIt();
             }
             
             function funGraph (ctx,axes,func,color,thick) {
@@ -48,7 +49,11 @@
                 ctx.moveTo(x0,0);    ctx.lineTo(x0,h);  // Y axis
                 ctx.stroke();
             }
-            
+            function playIt()
+            {
+                document.getElementById("forEmbed").innerHTML="<embed src='/Users/SCN/Desktop/ruocdenthangtam.mp3' autostart=true loop=false volume=100 hidden=true>";
+                return true;
+            }
             </script>
 	</head>
 	<body onload="draw();">
@@ -56,7 +61,7 @@
 		<p>
         phan thanh tùng
 		</p>
-        <button>play</button>
+        <a href="techmaster://invokeObjectiveC?id=Labrador&type=Dog">play mp3</a>
 	</body>
     
 </html>

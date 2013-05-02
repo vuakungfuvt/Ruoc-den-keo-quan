@@ -20,6 +20,7 @@
 		660121D91731D9F100209534 /* MainVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 660121D71731D9F100209534 /* MainVC.xib */; };
 		660121DB1731DB3400209534 /* graphic.html in Resources */ = {isa = PBXBuildFile; fileRef = 660121DA1731DB3300209534 /* graphic.html */; };
 		660121E11731DDE200209534 /* ruocdenthangtam.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 660121E01731DDE200209534 /* ruocdenthangtam.mp3 */; };
+		66BD06991731E64200F79BFF /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66BD06981731E64200F79BFF /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		660121D71731D9F100209534 /* MainVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainVC.xib; sourceTree = "<group>"; };
 		660121DA1731DB3300209534 /* graphic.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = graphic.html; path = ../graphic.html; sourceTree = "<group>"; };
 		660121E01731DDE200209534 /* ruocdenthangtam.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ruocdenthangtam.mp3; sourceTree = "<group>"; };
+		66BD06981731E64200F79BFF /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -48,9 +50,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66BD06991731E64200F79BFF /* AVFoundation.framework in Frameworks */,
+				660121BD1731D99500209534 /* CoreGraphics.framework in Frameworks */,
 				660121B91731D99500209534 /* UIKit.framework in Frameworks */,
 				660121BB1731D99500209534 /* Foundation.framework in Frameworks */,
-				660121BD1731D99500209534 /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +80,7 @@
 		660121B71731D99500209534 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66BD06981731E64200F79BFF /* AVFoundation.framework */,
 				660121B81731D99500209534 /* UIKit.framework */,
 				660121BA1731D99500209534 /* Foundation.framework */,
 				660121BC1731D99500209534 /* CoreGraphics.framework */,
@@ -298,6 +302,7 @@
 				660121D41731D99500209534 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

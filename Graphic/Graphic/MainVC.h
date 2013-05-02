@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface MainVC : UIViewController<UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, strong) AVAudioPlayer *audioPlayer;
 @end
